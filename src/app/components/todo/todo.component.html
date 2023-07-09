@@ -1,5 +1,40 @@
 <!-- components/todo/todo.component.html -->
 
-<div>
-    <h2>Todos</h2>
+<div class="todo-container">
+
+    <div class="todo-form" *ngIf="showCreateForm; else updateForm">
+        <form (submit)="createTodo()">
+            <input type="text" name="title" placeholder="Enter title" [(ngModel)]="newTodo.title">
+            <input type="text" name="description" placeholder="Enter description" [(ngModel)]="newTodo.description">
+            <button type="submit">Create Todo</button>
+        </form>
+        <div *ngIf="formError" class="error-message">
+            <p>{{error_message}}</p>
+        </div>
+    </div>
+
+    <ng-template #updateForm>
+        <div class="update-form">
+            <form (submit)="updateTodo()">
+                <input type="text" name="title" placeholder="Enter updated title" [(ngModel)]="updatedTodo.title">
+                <input type="text" name="description" placeholder="Enter updated description"
+                    [(ngModel)]="updatedTodo.description">
+                <button type="submit">Update Todo</button>
+            </form>
+        </div>
+    </ng-template>
+
+    <div class="todo-list">
+        <ul>
+            <li *ngFor="let todo of todos$; let i = index" class="todo-item">
+                <h3>{{ todo.title }}</h3>
+                <p>{{ todo.description }}</p>
+                <p *ngIf="todo.isCompleted">Completed</p>
+                <p *ngIf="!todo.isCompleted">Not completed</p>
+                <button class="update-btn" (click)="showUpdateForm(i)">UPDATE</button>
+                <button class="delete-btn">DELETE</button>
+            </li>
+        </ul>
+    </div>
+
 </div>
