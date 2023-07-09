@@ -1,5 +1,6 @@
-## Folder Structure For todo CRUD Using NgRx
-```javascript
+// based on the belwo structure can you do todo crud operation using NgRx state management in angular
+// step by step and without  use of effect.ts
+
 - app
   - components
     - header
@@ -27,6 +28,3 @@
   - app.component.html
   - app.component.ts
   - app.module.ts
-```
-
-
