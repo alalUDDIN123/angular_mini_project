@@ -32,7 +32,7 @@
                 <p *ngIf="todo.isCompleted">Completed</p>
                 <p *ngIf="!todo.isCompleted">Not completed</p>
                 <button class="update-btn" (click)="showUpdateForm(i)">UPDATE</button>
-                <button class="delete-btn">DELETE</button>
+                <button class="delete-btn" (click)="deleteTodo(todo.id)" >DELETE</button>
             </li>
         </ul>
     </div>

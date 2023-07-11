@@ -1,7 +1,8 @@
 // components/todo/todo.component.ts
 
 import { Component } from '@angular/core';
-import { Todo } from 'src/app/core/models/todo.model';
+import { Todo } from '../models/Todo.model';
+
 
 @Component({
   selector: 'app-todo',
@@ -102,6 +103,17 @@ export class TodoComponent {
       isCompleted: false
     };
     this.showCreateForm = true;
+  }
+
+
+  deleteTodo(id: number) {
+    // console.log("delete item id:-", id);
+
+    const remainingTodo = this.todos$.filter((todo) => todo.id !== id);
+    // console.log("reset of the todos after delete one:-", remainingTodo);
+    this.todos$ = remainingTodo
+
+
   }
 
   showError(message: string, duration: number = 2000) {
