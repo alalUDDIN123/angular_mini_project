@@ -1,0 +1,42 @@
+.counter_btns {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.counter_btns button {
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.increment_btn {
+    background-color: #4caf50;
+}
+
+.decrement_btn {
+    background-color: #f44336;
+}
+
+.reset_btn {
+    background-color: #2196f3;
+}
+
+.counter_btns button:hover {
+    opacity: 0.8;
+}
+
+/* Styles for counter value display */
+.counter_value_display {
+    text-align: center;
+}
+
+.counter_value_display h1 {
+    font-size: 24px;
+}
+
+.counter_value_display b {
+    font-weight: bold;
+}

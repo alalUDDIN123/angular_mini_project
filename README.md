@@ -13,5 +13,5 @@
 
 ---
 
-- `git push origin ngrx_step_by_step`
-- `git checkout origin ngrx_step_by_step`
+- `git push origin counter_with_ngrx`
+- `git checkout origin counter_with_ngrx`
