@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store"
 
 import { Todo } from "../../models/Todo.model";
-import { getTodosAction } from "../actions/todo.actions";
+import { addTodosAction, deleteTodosAction, getTodosAction, updateTodosAction } from "../actions/todo.actions";
 
 const intialTodosData = [
     {
@@ -9,25 +9,8 @@ const intialTodosData = [
         title: "Sample todo 1",
         description: "This is a sample todo 1",
 
-    },
-    {
-        id: 2,
-        title: "Sample todo 2",
-        description: "This is a sample todo 2",
-
-    },
-    {
-        id: 3,
-        title: "Sample todo 3",
-        description: "This is a sample todo 3",
-
-    },
-    {
-        id: 4,
-        title: "Sample todo 4",
-        description: "This is a sample todo 4",
-
-    }]
+    }
+]
 
 // Defining structure of the todo model
 export interface TodoState {
@@ -47,5 +30,25 @@ export const intialTodoState: TodoState = {
 export const todoReducer = createReducer(
     intialTodoState,
 
-    on(getTodosAction, state => state)
+    // get todo
+    on(getTodosAction, state => state),
+
+    // create todo
+
+    on(addTodosAction, (state, { todo }) => ({
+        ...state,
+        todos: [...state.todos, todo]
+    })),
+
+
+    // update todo
+    on(updateTodosAction, (state, { updateTodo }) => ({
+        ...state,
+        todos: state.todos.map((t) => (t.id === updateTodo.id ? updateTodo : t)),
+    })),
+
+    on(deleteTodosAction, (state, { deleteTodoId }) => ({
+        ...state,
+        todos: state.todos.filter((t) => t.id !== deleteTodoId),
+    }))
 )

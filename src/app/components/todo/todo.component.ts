@@ -1,7 +1,9 @@
+// component.ts
+
 import { Store, select } from "@ngrx/store";
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../../models/Todo.model';
-import { getTodosAction } from "src/app/store/actions/todo.actions";
+import { addTodosAction, getTodosAction, updateTodosAction, deleteTodosAction } from "src/app/store/actions/todo.actions";
 import { selectTodos } from "src/app/store/selectors/todo.selectors";
 import { Observable, of } from "rxjs";
 
@@ -13,9 +15,8 @@ import { Observable, of } from "rxjs";
 export class TodoComponent implements OnInit {
   todos$: Observable<Todo[]> = of([]); // Initialize with an empty array
 
-  showCreateForm = true;
-  formError = false;
-  error_message = '';
+  showCreateForm: boolean = true;
+
   newTodo: Todo = {
     id: 0,
     title: '',
@@ -36,33 +37,48 @@ export class TodoComponent implements OnInit {
 
     // Subscribe to the todos state using the selector
     this.todos$ = this.store.pipe(select(selectTodos));
-    this.todos$.subscribe((todos: Todo[]) => {
-      console.log('Todos:', todos);
-    });
+    // this.todos$.subscribe((todos: Todo[]) => {
+    //   console.log('Todos:', todos);
+    // });
   }
 
   createTodo() {
-    // Add logic for creating a new todo
+    const CreateNewTodo = {
+      id: Date.now(),
+      title: this.newTodo.title,
+      description: this.newTodo.description
+    }
+
+    this.store.dispatch(addTodosAction({ todo: CreateNewTodo }))
+
+    this.newTodo = {
+      id: 0,
+      title: '',
+      description: '',
+    };
   }
 
   showUpdateForm(index: number) {
-    // Add logic for showing the update form
+    this.showCreateForm = false;
+
+    this.todos$.subscribe((todos: Todo[]) => {
+      this.updatedTodo = { ...todos[index] };
+    }); // Set the updatedTodo with the selected todo
   }
 
   updateTodo() {
-    // Add logic for updating a todo
+    // console.log("this.updatedTodo:-", this.updatedTodo)
+    this.store.dispatch(updateTodosAction({ updateTodo: this.updatedTodo }));
+    this.showCreateForm = true;
+    this.updatedTodo = {
+      id: 0,
+      title: '',
+      description: '',
+    };
   }
 
   deleteTodo(id: number) {
-    // Add logic for deleting a todo
+    this.store.dispatch(deleteTodosAction({ deleteTodoId: id }));
   }
 
-  showError(message: string, duration: number = 2000) {
-    this.formError = true;
-    this.error_message = message;
-
-    setTimeout(() => {
-      this.formError = false;
-    }, duration);
-  }
 }
