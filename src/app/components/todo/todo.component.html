@@ -25,16 +25,15 @@
     </ng-template>
 
     <div class="todo-list">
-        <!-- <ul>
-            <li *ngFor="let todo of todos$; let i = index" class="todo-item">
+        <ul>
+            <li *ngFor="let todo of todos$ | async; let i = index" class="todo-item">
                 <h3>{{ todo.title }}</h3>
                 <p>{{ todo.description }}</p>
-                <p *ngIf="todo.isCompleted">Completed</p>
-                <p *ngIf="!todo.isCompleted">Not completed</p>
                 <button class="update-btn" (click)="showUpdateForm(i)">UPDATE</button>
-                <button class="delete-btn" (click)="deleteTodo(todo.id)" >DELETE</button>
+                <button class="delete-btn" (click)="deleteTodo(todo.id)">DELETE</button>
             </li>
-        </ul> -->
+
+        </ul>
     </div>
 
 </div>
